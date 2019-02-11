@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import axios from '../../axis-services';
+import axios from '../../axios-services';
 
 import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 class Home extends Component {
     state = {
@@ -12,15 +13,15 @@ class Home extends Component {
 
     getData() {
 
-        let url = 'pages.json';
         let pageId = this.props.match.params.id;
         if (!pageId) {
             pageId = 'home'
         }
+        let url = `services.jsodn?orderBy="id"&equalTo="${pageId}"`
 
         axios.get(url).then(response => {
-            const { data } = response;
-            const obj = data[pageId];
+            const {data} = response;
+            const obj = data ? data[pageId] : {};
             this.setState({loading: false, page: obj});
         });
 
@@ -48,4 +49,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withErrorHandler(Home, axios);
