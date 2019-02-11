@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const instance = axios.create({
-    baseURL: 'https://internetshop-elza.firebaseio.com/' // Your URL here!
+    baseURL: 'https://services-hw66.firebaseio.com/' // Your URL here!
 });
 
 instance.interceptors.request.use(req => {
