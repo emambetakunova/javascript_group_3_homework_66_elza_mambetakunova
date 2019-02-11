@@ -8,11 +8,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
             super(props);
 
             this.state = {
-                error: null
+                error: null,
+                isLoading: null
             };
 
             this.state.interceptorId = axios.interceptors.response.use(res => res, error => {
-                this.setState({error});
+                this.setState({error, isLoading: true});
                 throw error;
             });
         }
@@ -22,7 +23,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
 
         errorDismissed = () => {
-            this.setState({error: null});
+            this.setState({error: null, isLoading: false});
         };
 
         render() {
@@ -31,7 +32,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                     <Modal show={this.state.error} close={this.errorDismissed}>
                         {this.state.error && this.state.error.message}
                     </Modal>
-                    <WrappedComponent {...this.props} />
+                    <WrappedComponent {...this.props} isLoading={this.state.isLoading} />
                 </Fragment>
             )
         }

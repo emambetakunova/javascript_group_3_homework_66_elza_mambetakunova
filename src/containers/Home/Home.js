@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import axios from '../../axios-services';
 
 import Spinner from "../../components/UI/Spinner/Spinner";
@@ -17,7 +17,7 @@ class Home extends Component {
         if (!pageId) {
             pageId = 'home'
         }
-        let url = `services.jsodn?orderBy="id"&equalTo="${pageId}"`
+        let url = `services.json?orderBy="id"&equalTo="${pageId}"`
 
         axios.get(url).then(response => {
             const {data} = response;
@@ -35,15 +35,32 @@ class Home extends Component {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             this.getData();
         }
+        if (prevProps.isLoading !== this.props.isLoading && this.props.isLoading === false) {
+            this.setState({loading: false})
+        }
+    }
+
+    renderPage(page) {
+        return (
+            <Fragment>
+                <h2>{page.title}</h2>
+                <p>{page.content}</p>
+            </Fragment>
+        )
     }
 
     render() {
+        const innerNull = (
+            <Fragment>
+                <h2>Sorry</h2>
+                <p>No content available</p>
+            </Fragment>
+        );
         return (
             this.state.loading ?
                 <Spinner/> :
                 <div className="Home">
-                    <h2>{this.state.page.title}</h2>
-                    <p>{this.state.page.content}</p>
+                    {this.state.page ? this.renderPage(this.state.page) : innerNull}
                 </div>
         );
     }
