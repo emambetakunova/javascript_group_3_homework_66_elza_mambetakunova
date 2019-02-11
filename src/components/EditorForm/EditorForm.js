@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {CATEGORYPAGES} from "../../constants";
-import axios from '../../axis-services';
+import axios from '../../axios-services';
 
 import './EditorForm.css'
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 class EditorForm extends Component {
 
@@ -15,7 +16,7 @@ class EditorForm extends Component {
 
     getData = (pageId) => {
 
-        let url = 'pages.json';
+        let url = 'services.json';
 
         axios.get(url).then(response => {
             const { data } = response;
@@ -43,9 +44,9 @@ class EditorForm extends Component {
             content: this.state.content
         };
         event.preventDefault();
-        axios.put('pages/' + this.state.pageId + '.json', item).then(() => {
+        axios.put('services/' + this.state.pageId + '.json', item).then(() => {
             this.props.history.push({
-                pathname: '/pages/' + this.state.pageId
+                pathname: '/services/' + this.state.pageId
             });
         })
     };
@@ -81,4 +82,4 @@ class EditorForm extends Component {
     }
 }
 
-export default EditorForm;
+export default withErrorHandler(EditorForm, axios);

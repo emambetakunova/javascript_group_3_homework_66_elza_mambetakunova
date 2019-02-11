@@ -9,13 +9,13 @@
 .EditorForm{
     margin: 30px auto;
     border-radius: 5px;
-    border: 1px solid #ffbb42;
+    border: 1px solid #8989ba;
     max-width: 600px;
     text-align: left;
     padding: 20px;
 }
 .Save{
-    background: #ffbb42;
+    background: #8989ba;
     border: transparent;
     border-radius: 5px;
     padding: 10px;
@@ -24,13 +24,13 @@
 }
 .InputEditor {
     width: 70%;
-    border: 1px solid #ffbb42;
+    border: 1px solid #8989ba;
     padding: 10px;
 }
 
 .SelectEditor {
-    background: #ffbb42;
+    background: #cccccc;
     width: 73%;
-    border: 1px solid #ffbb42;
+    border: 1px solid #8989ba;
     padding: 10px;
 }
